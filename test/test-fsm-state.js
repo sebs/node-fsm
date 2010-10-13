@@ -29,9 +29,19 @@ try {
 }
 
 // add an event that has a method passed
-assert.ok(cState.addEvent('entry', function() {}));
-assert.ok(cState.addEvent('exit', function() {}));
-assert.ok(cState.addEvent('transition', function() {}));
+assert.ok(cState.addEvent('entry', function(me) {
+    sys.log('entry');
+    me.emit('exit');    
+}));
+assert.ok(cState.addEvent('exit', function(me) {
+    sys.log('exit');
+    me.emit('transition');    
+}));
+assert.ok(cState.addEvent('transition', function(me) {
+    sys.log('transition');    
+}));
+
+cState.emit('entry');
 
 
 
