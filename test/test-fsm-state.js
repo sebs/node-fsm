@@ -5,8 +5,8 @@ var cState = new state.state();
 
 // check on exsitance of the actions in the fsm 
 assert.ok(typeof cState.events == 'object');
-assert.ok(typeof cState.events.entry == 'function');
-assert.ok(typeof cState.events.exit == 'function');
+assert.ok(typeof cState.events.entry == 'object');
+assert.ok(typeof cState.events.exit == 'object');
 assert.ok(typeof cState.events.transition == 'object');
 
 // addEvent function
@@ -27,26 +27,34 @@ try {
 } catch (e) {
         assert.ok(e == 'Missing Method');
 }
-
+var count = 1;;
 var stateState = 'none';
 // add an event that has a method passed
 assert.ok(cState.addEvent('entry', function(me) {
+    count++;
     stateState = 'entry';
     me.emit('exit');    
 }));
 assert.ok(cState.addEvent('exit', function(me) {
+    count++;
     // sys.log('exit');
     assert.ok(stateState == 'entry');
     stateState = 'exit';
     me.emit('transition');    
 }));
 assert.ok(cState.addEvent('transition', function(me) {
+    count++;
     assert.ok(stateState == 'exit');
+    checkResult();
     // sys.log('transition');    
 }));
 
 cState.emit('entry');
 
+
+var checkResult = function() {
+    assert.ok(count == 3);
+}
 
 
 
