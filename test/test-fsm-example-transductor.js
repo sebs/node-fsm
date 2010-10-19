@@ -45,11 +45,11 @@ var cbError = function() {
     return 'Final';
 }
 
-fsm.addTransition('Init', 'FOUND_A', a);
-fsm.addTransition('FOUND_A', 'FOUND_G', g);
-fsm.addTransition('FOUND_G', 'FOUND_I', i);
-fsm.addTransition('FOUND_I', 'FOUND_L', l);
-fsm.addTransition('FOUND_L', 'FOUND_E', e);
-fsm.addTransition('FOUND_E', 'Final', cbFinal);
+fsm.onTransition('Init', 'FOUND_A', a);
+fsm.onTransition('FOUND_A', 'FOUND_G', g);
+fsm.onTransition('FOUND_G', 'FOUND_I', i);
+fsm.onTransition('FOUND_I', 'FOUND_L', l);
+fsm.onTransition('FOUND_L', 'FOUND_E', e);
+fsm.onTransition('FOUND_E', 'Final', cbFinal);
 
 fsm.run();
