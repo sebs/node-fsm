@@ -4,10 +4,10 @@ var state = require('../lib/fsm-state');
 var cState = new state.state();
 
 // check on exsitance of the actions in the fsm 
-assert.ok(typeof cState.actions == 'object');
-assert.ok(typeof cState.actions.entry == 'function');
-assert.ok(typeof cState.actions.exit == 'function');
-assert.ok(typeof cState.actions.transition == 'object');
+assert.ok(typeof cState.events == 'object');
+assert.ok(typeof cState.events.entry == 'function');
+assert.ok(typeof cState.events.exit == 'function');
+assert.ok(typeof cState.events.transition == 'object');
 
 // addEvent function
 assert.ok(typeof cState.addEvent == 'function');
