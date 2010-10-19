@@ -1,7 +1,7 @@
 var assert = require('assert');
 var sys = require('sys');
-var state = require('../lib/fsm-state');
-var cState = new state.state();
+var state = require('../lib/fsm-state').state;
+var cState = new state();
 
 // check on exsitance of the actions in the fsm 
 assert.ok(typeof cState.events == 'object');

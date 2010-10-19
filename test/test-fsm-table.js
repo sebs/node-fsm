@@ -1,6 +1,9 @@
 var assert = require('assert');
-var fsm = require('../lib/fsm-table');
+var table = require('../lib/fsm-table').table;
 // first of all we ad states
+
+var fsm = new table();
+
 fsm.addState('Init');
 fsm.addState('Calculate');
 fsm.addState('Final');
