@@ -11,54 +11,50 @@ fsm.addState('FOUND_I');
 fsm.addState('FOUND_L');
 fsm.addState('FOUND_E');
 fsm.addState('Final');
-fsm.addState('Error');
-fsm.addState('Sucess');
+fsm.addState('ERROR');
 
 fsm.setData('text', 'agile');
 
 var myFsm = fsm; 
-var cbInitFoundInit = function() {
+var a = function() {
     if (myFsm.getData('text').charAt(0) == 'a') return 'FOUND_A';
     return 'ERROR';    
 };
-var cbInitFoundA = function() {
+var g = function() {
     if (myFsm.getData('text').charAt(1) == 'g') return 'FOUND_G';
     return 'ERROR';    
 }; 
-var cbInitFoundG = function() {
+var i = function() {
     if (myFsm.getData('text').charAt(2) == 'i') return 'FOUND_I';
     return 'ERROR';    
 }; 
-var cbInitFoundI = function() {
+var l = function() {
     if (myFsm.getData('text').charAt(3) == 'l') return 'FOUND_L';
     return 'ERROR';    
 }; 
-var cbInitFoundL = function() {
+var e = function() {
     if (myFsm.getData('text').charAt(4) == 'e') return 'FOUND_E';
     return 'ERROR';    
 }; 
-var cbInitFoundE = function() {
-    return 'Final';
-};
-
-var cbInitFound = function() {
-    return 'Final'; 
-};
 
 var cbFinal = function() {
-    var data = myfsmGetData.valid; 
-    asser.ok(data == true);
+    return 'Final';
 }
 
-fsm.addTransition('Init', 'FOUND_A', cbInitFoundA);
-fsm.addTransition('FOUND_A', 'FOUND_G', cbInitFoundG);
-fsm.addTransition('FOUND_G', 'FOUND_I', cbInitFoundI);
-fsm.addTransition('FOUND_I', 'FOUND_L', cbInitFoundL);
-fsm.addTransition('FOUND_L', 'FOUND_E', cbInitFoundE);
+var cbError = function() {
+    return 'Final';
+}
+
+states = ['FOUND_A', 'FOUND_G', 'FOUND_I', 'FOUND_L', 'FOUND_E'];
+
+fsm.addTransition('Init', 'FOUND_A', a);
+fsm.addTransition('FOUND_A', 'FOUND_G', g);
+fsm.addTransition('FOUND_G', 'FOUND_I', i);
+fsm.addTransition('FOUND_I', 'FOUND_L', l);
+fsm.addTransition('FOUND_L', 'FOUND_E', e);
 fsm.addTransition('FOUND_E', 'Final', cbFinal);
 
-
-
-
-
+for (i in states) {
+    // fsm.addTransition(states[i], 'ERROR', cbError);
+}
 fsm.run();
