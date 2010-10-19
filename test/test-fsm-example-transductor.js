@@ -45,8 +45,6 @@ var cbError = function() {
     return 'Final';
 }
 
-states = ['FOUND_A', 'FOUND_G', 'FOUND_I', 'FOUND_L', 'FOUND_E'];
-
 fsm.addTransition('Init', 'FOUND_A', a);
 fsm.addTransition('FOUND_A', 'FOUND_G', g);
 fsm.addTransition('FOUND_G', 'FOUND_I', i);
@@ -54,7 +52,4 @@ fsm.addTransition('FOUND_I', 'FOUND_L', l);
 fsm.addTransition('FOUND_L', 'FOUND_E', e);
 fsm.addTransition('FOUND_E', 'Final', cbFinal);
 
-for (i in states) {
-    // fsm.addTransition(states[i], 'ERROR', cbError);
-}
 fsm.run();

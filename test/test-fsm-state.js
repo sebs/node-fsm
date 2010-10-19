@@ -10,11 +10,11 @@ assert.ok(typeof cState.events.exit == 'object');
 assert.ok(typeof cState.events.transition == 'object');
 
 // addEvent function
-assert.ok(typeof cState.addEvent == 'function');
+assert.ok(typeof cState.on == 'function');
 
 // try to add an event to an unknown action 
 try {
-    cState.addEvent('unknown');
+    cState.on('unknown');
 } catch (e) {
     assert.ok(e == 'Unknown Action');
 }
@@ -22,7 +22,7 @@ try {
 
 // try to add an event to an unknown action 
 try {
-        cState.addEvent('entry');
+        cState.on('entry');
         assert.ok(false);
 } catch (e) {
         assert.ok(e == 'Missing Method');
@@ -30,19 +30,19 @@ try {
 var count = 1;;
 var stateState = 'none';
 // add an event that has a method passed
-assert.ok(cState.addEvent('entry', function(me) {
+assert.ok(cState.on('entry', function(me) {
     count++;
     stateState = 'entry';
     me.emit('exit');    
 }));
-assert.ok(cState.addEvent('exit', function(me) {
+assert.ok(cState.on('exit', function(me) {
     count++;
     // sys.log('exit');
     assert.ok(stateState == 'entry');
     stateState = 'exit';
     me.emit('transition');    
 }));
-assert.ok(cState.addEvent('transition', function(me) {
+assert.ok(cState.on('transition', function(me) {
     count++;
     assert.ok(stateState == 'exit');
     checkResult();
