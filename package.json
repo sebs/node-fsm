@@ -1,0 +1,11 @@
+{
+  "name" : "node-fsm",
+  "version" : "0.0.3",
+  "author" : "Sebastian Schürmann <sschuermann303@yahoo.de>",
+  "description" : "A finite state machine  module for node.js",
+  "keywords" : ["finite state machine, fsm"],
+  "engines" : ["node"],
+  "directories" : { "lib" : "lib" },
+  "main" : "lib"
+}
+
