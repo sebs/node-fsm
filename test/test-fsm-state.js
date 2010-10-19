@@ -31,19 +31,18 @@ try {
 var stateState = 'none';
 // add an event that has a method passed
 assert.ok(cState.addEvent('entry', function(me) {
-    sys.log('entry');
     stateState = 'entry';
     me.emit('exit');    
 }));
 assert.ok(cState.addEvent('exit', function(me) {
-    sys.log('exit');
+    // sys.log('exit');
     assert.ok(stateState == 'entry');
     stateState = 'exit';
     me.emit('transition');    
 }));
 assert.ok(cState.addEvent('transition', function(me) {
     assert.ok(stateState == 'exit');
-    sys.log('transition');    
+    // sys.log('transition');    
 }));
 
 cState.emit('entry');
