@@ -14,9 +14,8 @@ var meFsm = fsm;
 
 // we add a transition code, this one sets some data
 fsm.addTransition('Init', 'War', function() {
-	var data = meFsm.getData('money');
-    assert.ok(data == 1000); 
-    meFsm.setData('money', 100);
+    assert.ok(meFsm.data.money == 1000); 
+    meFsm.data.money = 100;
     return 'War';
 });
 
