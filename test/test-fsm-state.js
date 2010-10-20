@@ -22,10 +22,10 @@ try {
 
 // try to add an event to an unknown action 
 try {
-        cState.on('entry');
-        assert.ok(false);
+    cState.on('entry');
+    assert.ok(false);
 } catch (e) {
-        assert.ok(e == 'Missing Method');
+    assert.ok(e == 'Missing Method');
 }
 var count = 1;;
 var stateState = 'none';
