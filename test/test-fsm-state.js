@@ -12,13 +12,6 @@ assert.ok(typeof cState.events.transition == 'object');
 // addEvent function
 assert.ok(typeof cState.on == 'function');
 
-// try to add an event to an unknown action 
-try {
-    cState.on('unknown');
-} catch (e) {
-    assert.ok(e == 'Unknown Action');
-}
-
 
 // try to add an event to an unknown action 
 try {
