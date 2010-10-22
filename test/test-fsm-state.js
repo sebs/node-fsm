@@ -12,7 +12,7 @@ assert.ok(typeof cState.events.input == 'object');
 // on - the event adding  function
 assert.ok(typeof cState.on == 'function');
 // action executed atm 
-
+assert.ok(cState.action == null);
 
 // try to add an event to an unknown action 
 try {
@@ -24,16 +24,18 @@ try {
 
 // add an event that has a method passed
 assert.ok(cState.on('entry', function(me) {
+    assert.ok(me.action == 'entry');
     me.emit('exit');    
 }));
 assert.ok(cState.on('exit', function(me) {
+    assert.ok(me.action == 'exit');
     me.emit('transition');    
 }));
 assert.ok(cState.on('transition', function(me) {
-
+    assert.ok(me.action == 'transition');
 }));
 assert.ok(cState.on('input', function(me) {
-    
+    assert.ok(me.action == 'input');
 }));
 
 cState.emit('entry');
