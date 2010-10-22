@@ -8,14 +8,19 @@ var myFsm = new table(function() {
 assert.ok(typeof myFsm == 'object');
 var me = myFsm;
 var found = new state();
+found.on('entry', function() {
+    sys.log('found entry');
+    me.emit('WIN');    
+});
 var error = new state();
-var sucess = new state();
+var win = new state();
 
 myFsm.on('F_FOUND', found);
-myFsm.on('WIN', error);
-myFsm.on('FAIL', sucess);
+myFsm.on('WIN', win);
+myFsm.on('FAIL', error);
 
 myFsm.run('F_FOUND', function() {
     sys.log('run');
-    me.emitter.emit('SUCCESS');    
+    me.em.emit('WIN');    
 });
+
