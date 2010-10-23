@@ -10,12 +10,22 @@ var me = myFsm;
 var found = new state();
 found.on('transition', function() {
     // end the fsm
-    sys.log('ending the fsm');
-    me.end();
+    sys.log('to sucess');
+    me.emitState('end_state');
 });
+var end = new state();
+end.on('transition', function() {
+    me.end();    
+});
+
 // add the state to the fsm 
 myFsm.on('state', found); 
+myFsm.on('end_state', end);
+
+
+
 // run the fsm 
 myFsm.execute('state', function(){
-    sys.log('fsm run cb');    
+    
 });
+
