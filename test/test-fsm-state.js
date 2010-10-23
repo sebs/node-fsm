@@ -14,39 +14,22 @@ assert.ok(typeof cState.on == 'function');
 // action executed atm 
 assert.ok(cState.action == null);
 
-// try to add an event to an unknown action 
-try {
-    cState.on('entry');
-    assert.ok(false);
-} catch (e) {
-    assert.ok(e == 'Missing Method');
-}
-
 // add an event that has a method passed
 assert.ok(cState.on('entry', function() {
-    sys.log('state entry cb');
     assert.ok(me.action == 'entry');
     me.emit('exit');    
 }));
 assert.ok(cState.on('exit', function() {
+    sys.log('expected exit found '+me.action);
     assert.ok(me.action == 'exit');
     me.emit('transition');    
 }));
 assert.ok(cState.on('transition', function() {
     assert.ok(me.action == 'transition');
-}));
+}));  
 assert.ok(cState.on('input', function() {
-    assert.ok(me.action == 'input');
     me.emit('entry');
 }));
 
-cState.emit('input');
-
-var checkResult = function() {
-    assert.ok(count == 3);
-}
-
-
-
-
+cState.execute();
 

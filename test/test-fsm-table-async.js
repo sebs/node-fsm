@@ -11,11 +11,11 @@ var found = new state();
 found.on('transition', function() {
     // end the fsm
     sys.log('ending the fsm');
-    me.emit('end');
+    me.end();
 });
 // add the state to the fsm 
 myFsm.on('state', found); 
 // run the fsm 
-myFsm.run('state', function(){
+myFsm.execute('state', function(){
     sys.log('fsm run cb');    
 });
