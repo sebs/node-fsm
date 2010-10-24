@@ -6,23 +6,20 @@ var myFsm = new table(function() {
     sys.log('fsm init cb');
 });
 assert.ok(typeof myFsm == 'object');
-var me = myFsm;
 var found = new state();
 found.on('transition', function() {
     // end the fsm
     sys.log('to sucess');
-    me.emitState('end_state');
+    myFsm.emitState('end_state');
 });
 var end = new state();
 end.on('transition', function() {
-    me.end();    
+    myFsm.end();    
 });
 
 // add the state to the fsm 
 myFsm.on('state', found); 
 myFsm.on('end_state', end);
-
-
 
 // run the fsm 
 myFsm.execute('state', function(){
