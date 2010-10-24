@@ -1,6 +1,6 @@
 var assert = require('assert');
-var state = require('../lib/fsm-state').state;
-var fsm = require('../lib/fsm-table-async').asyncTable;
+var state = require('../../lib/fsm-state').state;
+var fsm = require('../../lib/fsm-table-async').asyncTable;
 var sys = require('sys');
 // now add all the states to the fsm
 var myFsm = new fsm(function() {});
@@ -44,7 +44,6 @@ foundI.on('transition', function() {
     if (data.text.charAt(2)== 'i') {
         myFsm.emitState('found_l');
     } else {
-        sys.log('to error');
         myFsm.emitState('error');
     }
 });
@@ -60,7 +59,6 @@ foundL.on('transition', function() {
         myFsm.emitState('found_e');
     } else {
         myFsm.emitState('error');
-        sys.log('to error');
     }
 });
 
@@ -74,12 +72,12 @@ foundE.on('transition', function() {
 
 var error = new state();
 error.on('input', function() {
-    sys.log('the word agile was not parsed');
 });
 
 var win = new state();
 win.on('input', function() {
-    sys.log('i win at finding agile win');
+    // @todo add a test
+    //sys.log('i win at finding agile win');
 });
 
 myFsm.on('win', win);

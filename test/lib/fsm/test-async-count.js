@@ -1,6 +1,6 @@
 var assert = require('assert');
-var state = require('../lib/fsm-state').state;
-var fsm = require('../lib/fsm-table-async').asyncTable;
+var state = require('../../../lib/fsm-state').state;
+var fsm = require('../../../lib/fsm-table-async').asyncTable;
 var sys = require('sys');
 // now add all the states to the fsm
 var myFsm = new fsm(function() {});

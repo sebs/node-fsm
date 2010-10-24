@@ -1,6 +1,6 @@
 var assert = require('assert');
 var sys = require('sys');
-var state = require('../lib/fsm-state').state;
+var state = require('../../../lib/fsm-state').state;
 var cState = new state();
 var me = cState;
 // check on exsitance of the actions in the fsm 

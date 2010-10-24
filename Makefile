@@ -1,4 +1,3 @@
 test:
-	@find test/test-*.js | xargs -n 1 -t node
-
+	@find test/lib/test-*.js | xargs -n 1 -t node
 .PHONY: test

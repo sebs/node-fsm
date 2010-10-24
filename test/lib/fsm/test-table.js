@@ -1,5 +1,5 @@
 var assert = require('assert');
-var table = require('../lib/fsm-table').table;
+var table = require('../../../lib/fsm-table').table;
 // first of all we ad states
 
 var fsm = new table();
