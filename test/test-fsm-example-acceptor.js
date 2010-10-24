@@ -13,7 +13,6 @@ foundA.on('input', function() {
 foundA.on('transition', function() {
     var data = foundA.getData();
     if (data.text.charAt(0)== 'a') {
-        sys.log('found_a');
         myFsm.emitState('found_g');
     } else {
         myFsm.emitState('error');
