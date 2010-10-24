@@ -2,6 +2,8 @@ var assert = require('assert');
 var state = require('../lib/fsm-state').state;
 var fsm = require('../lib/fsm-table-async').asyncTable;
 var sys = require('sys');
+// now add all the states to the fsm
+var myFsm = new fsm(function() {});
 
 var foundA = new state();
 foundA.on('input', function() {
@@ -11,13 +13,13 @@ foundA.on('input', function() {
 foundA.on('transition', function() {
     var data = foundA.getData();
     if (data.text.charAt(0)== 'a') {
-        sys.log('to found g');
+        sys.log('found_a');
+        myFsm.emitState('found_g');
     } else {
-        sys.log('to error');
+        myFsm.emitState('error');
     }
     assert.ok(data.text == 'agile');
 });
-foundA.execute();
 var foundG = new state();
 foundG.on('input', function() {
     foundG.setData({text:'agile'});    
@@ -26,13 +28,12 @@ foundG.on('input', function() {
 foundG.on('transition', function() {
     var data = foundG.getData(); 
     if (data.text.charAt(1)== 'g') {
-        sys.log('to found i');
+        myFsm.emitState('found_i');
     } else {
-        sys.log('to error');
+        myFsm.emitState('error');
     }
     assert.ok(data.text == 'agile');
 });
-foundG.execute();
 
 foundI = new state();
 foundI.on('input', function() {
@@ -42,12 +43,12 @@ foundI.on('input', function() {
 foundI.on('transition', function() {
     data = foundI.getData();
     if (data.text.charAt(2)== 'i') {
-        sys.log('to found l');
+        myFsm.emitState('found_l');
     } else {
         sys.log('to error');
+        myFsm.emitState('error');
     }
 });
-foundI.execute();
 
 var foundL = new state();
 foundL.on('input', function() {
@@ -57,42 +58,31 @@ foundL.on('input', function() {
 foundL.on('transition', function() {
     data = foundL.getData();
     if (data.text.charAt(3)== 'l') {
-        sys.log('to found e');
+        myFsm.emitState('found_e');
     } else {
+        myFsm.emitState('error');
         sys.log('to error');
     }
 });
-foundL.execute();
 
 var foundE = new state(); 
 foundE.on('input', function() {
-    foundL.setData({text:'agile'});
-    foundL.emit('transition');
+    foundE.emit('transition');
 });
 foundE.on('transition', function() {
-    var data = foundE.getData();
-    if (data.text.charAt(4)== 'e') {
-        sys.log('to found win');
-    } else {
-        sys.log('to error');
-    }  
+    myFsm.emitState('win');
 });
 
 var error = new state();
 error.on('input', function() {
     sys.log('the word agile was not parsed');
 });
-error.execute();
 
 var win = new state();
 win.on('input', function() {
-    sys.log('win');
+    sys.log('i win at finding agile win');
 });
 
-// now add all the states to the fsm
-var myFsm = new fsm(function() {
-    
-});
 myFsm.on('win', win);
 myFsm.on('error', error);
 myFsm.on('found_a', foundA); 
@@ -101,10 +91,5 @@ myFsm.on('found_i', foundI);
 myFsm.on('found_l', foundL);
 myFsm.on('found_e', foundE);
 myFsm.execute('found_a');
-
-
-
-
-
 
 
