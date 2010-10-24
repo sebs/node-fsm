@@ -9,7 +9,6 @@ assert.ok(myFsm.counter == 0);
 var foundE = new state(); 
 foundE.on('input', function() {
     foundE.emit('transition');
-    sys.log(myFsm.counter);
     assert.ok(myFsm.counter == 2); 
 });
 
@@ -19,7 +18,7 @@ foundE.on('transition', function() {
 
 var win = new state();
 win.on('input', function() {
-    sys.log('i win at finding agile win');
+    // sys.log('i win at finding agile win');
 });
 
 myFsm.on('win', win);
