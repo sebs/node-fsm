@@ -7,11 +7,11 @@ var myFsm = new fsm(function() {});
 
 var foundA = new state();
 foundA.on('input', function() {
-    foundA.setData({text:'agile'});
+    foundA.setPayLoad({text:'agile'});
     foundA.emit('transition');
 });
 foundA.on('transition', function() {
-    var data = foundA.getData();
+    var data = foundA.getPayLoad();
     if (data.text.charAt(0)== 'a') {
         myFsm.emitState('found_g');
     } else {
@@ -21,11 +21,11 @@ foundA.on('transition', function() {
 });
 var foundG = new state();
 foundG.on('input', function() {
-    foundG.setData({text:'agile'});    
+    foundG.setPayLoad({text:'agile'});    
     foundG.emit('transition');
 });
 foundG.on('transition', function() {
-    var data = foundG.getData(); 
+    var data = foundG.getPayLoad(); 
     if (data.text.charAt(1)== 'g') {
         myFsm.emitState('found_i');
     } else {
@@ -36,11 +36,11 @@ foundG.on('transition', function() {
 
 foundI = new state();
 foundI.on('input', function() {
-    foundI.setData({text:'agile'});
+    foundI.setPayLoad({text:'agile'});
     foundI.emit('transition');
 });
 foundI.on('transition', function() {
-    data = foundI.getData();
+    data = foundI.getPayLoad();
     if (data.text.charAt(2)== 'i') {
         myFsm.emitState('found_l');
     } else {
@@ -51,11 +51,11 @@ foundI.on('transition', function() {
 
 var foundL = new state();
 foundL.on('input', function() {
-    foundL.setData({text:'agile'});
+    foundL.setPayLoad({text:'agile'});
     foundL.emit('transition');
 });
 foundL.on('transition', function() {
-    data = foundL.getData();
+    data = foundL.getPayLoad();
     if (data.text.charAt(3)== 'l') {
         myFsm.emitState('found_e');
     } else {
