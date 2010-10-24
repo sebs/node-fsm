@@ -1,55 +1,110 @@
 var assert = require('assert');
-var table = require('../lib/fsm-table').table;
-// first of all we ad states
+var state = require('../lib/fsm-state').state;
+var fsm = require('../lib/fsm-table-async').asyncTable;
+var sys = require('sys');
 
-var fsm = new table();
+var foundA = new state();
+foundA.on('input', function() {
+    foundA.setData({text:'agile'});
+    foundA.emit('transition');
+});
+foundA.on('transition', function() {
+    var data = foundA.getData();
+    if (data.text.charAt(0)== 'a') {
+        sys.log('to found g');
+    } else {
+        sys.log('to error');
+    }
+    assert.ok(data.text == 'agile');
+});
+foundA.execute();
+var foundG = new state();
+foundG.on('input', function() {
+    foundG.setData({text:'agile'});    
+    foundG.emit('transition');
+});
+foundG.on('transition', function() {
+    var data = foundG.getData(); 
+    if (data.text.charAt(1)== 'g') {
+        sys.log('to found i');
+    } else {
+        sys.log('to error');
+    }
+    assert.ok(data.text == 'agile');
+});
+foundG.execute();
 
-fsm.addState('Init'); 
-fsm.addState('FOUND_A');
-fsm.addState('FOUND_G');
-fsm.addState('FOUND_I');
-fsm.addState('FOUND_L');
-fsm.addState('FOUND_E');
-fsm.addState('Final');
-fsm.addState('ERROR');
+foundI = new state();
+foundI.on('input', function() {
+    foundI.setData({text:'agile'});
+    foundI.emit('transition');
+});
+foundI.on('transition', function() {
+    data = foundI.getData();
+    if (data.text.charAt(2)== 'i') {
+        sys.log('to found l');
+    } else {
+        sys.log('to error');
+    }
+});
+foundI.execute();
 
-fsm.setData('text', 'agile');
+var foundL = new state();
+foundL.on('input', function() {
+    foundL.setData({text:'agile'});
+    foundL.emit('transition');
+});
+foundL.on('transition', function() {
+    data = foundL.getData();
+    if (data.text.charAt(3)== 'l') {
+        sys.log('to found e');
+    } else {
+        sys.log('to error');
+    }
+});
+foundL.execute();
 
-var myFsm = fsm; 
-var a = function() {
-    if (myFsm.getData('text').charAt(0) == 'a') return 'FOUND_A';
-    return 'ERROR';    
-};
-var g = function() {
-    if (myFsm.getData('text').charAt(1) == 'g') return 'FOUND_G';
-    return 'ERROR';    
-}; 
-var i = function() {
-    if (myFsm.getData('text').charAt(2) == 'i') return 'FOUND_I';
-    return 'ERROR';    
-}; 
-var l = function() {
-    if (myFsm.getData('text').charAt(3) == 'l') return 'FOUND_L';
-    return 'ERROR';    
-}; 
-var e = function() {
-    if (myFsm.getData('text').charAt(4) == 'e') return 'FOUND_E';
-    return 'ERROR';    
-}; 
+var foundE = new state(); 
+foundE.on('input', function() {
+    foundL.setData({text:'agile'});
+    foundL.emit('transition');
+});
+foundE.on('transition', function() {
+    var data = foundE.getData();
+    if (data.text.charAt(4)== 'e') {
+        sys.log('to found win');
+    } else {
+        sys.log('to error');
+    }  
+});
 
-var cbFinal = function() {
-    return 'Final';
-}
+var error = new state();
+error.on('input', function() {
+    sys.log('the word agile was not parsed');
+});
+error.execute();
 
-var cbError = function() {
-    return 'Final';
-}
+var win = new state();
+win.on('input', function() {
+    sys.log('win');
+});
 
-fsm.onTransition('Init', 'FOUND_A', a);
-fsm.onTransition('FOUND_A', 'FOUND_G', g);
-fsm.onTransition('FOUND_G', 'FOUND_I', i);
-fsm.onTransition('FOUND_I', 'FOUND_L', l);
-fsm.onTransition('FOUND_L', 'FOUND_E', e);
-fsm.onTransition('FOUND_E', 'Final', cbFinal);
+// now add all the states to the fsm
+var myFsm = new fsm(function() {
+    
+});
+myFsm.on('win', win);
+myFsm.on('error', error);
+myFsm.on('found_a', foundA); 
+myFsm.on('found_g', foundG)
+myFsm.on('found_i', foundI);
+myFsm.on('found_l', foundL);
+myFsm.on('found_e', foundE);
+myFsm.execute('found_a');
 
-fsm.run();
+
+
+
+
+
+
