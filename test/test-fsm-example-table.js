@@ -1,7 +1,6 @@
-var table = require('../lib/fsm-table').table;
-
 module.exports = {
     'bar()': function(assert){
+        var table = require('../lib/fsm-table').table;
         // first of all we ad states
         var fsm = new table();
         fsm.addState('Init');

@@ -1,14 +1,14 @@
+var fsm = require('./common').fsm;
+var state = require('./common').state;
 
-/**
- * Module dependencies.
- */
 module.exports = {
     'bar()': function(assert){
-        // first of all we ad states
-        var myFsm = new fsm(function() {});
-        var stats = myFsm.stats();
-        assert.ok(typeof stats == 'object');
+        var sys = require('sys');
+        var myState = new state();
+        assert.ok(myState.setPayLoad({id:1}));
+        var data = myState.getPayLoad();
+        assert.ok(typeof data == 'object');
+        assert.ok(data.id == 1); 
     }
 };
-
 
