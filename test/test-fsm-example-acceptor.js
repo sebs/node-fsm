@@ -6,11 +6,11 @@ module.exports = {
     'example acceptor': function(assert){
         var sys = require('sys');
         // now add all the states to the fsm
-        var myFsm = new common.fsm(function() {});
+        var myFsm = new common.fsm(function() {}, {text:'agile'});
             
             var foundA = new common.state();
             foundA.on('input', function() {
-                foundA.setPayLoad({text:'agile'});
+                foundA.setPayLoad(myFsm.getData());
                 foundA.emit('transition');
             });
             foundA.on('transition', function() {
@@ -25,7 +25,7 @@ module.exports = {
             
             var foundG = new common.state();
             foundG.on('input', function() {
-                foundG.setPayLoad({text:'agile'});
+                foundG.setPayLoad(myFsm.getData());
                 foundG.emit('transition');
             });
             foundG.on('transition', function() {
@@ -39,7 +39,7 @@ module.exports = {
             });
             foundI = new state();
             foundI.on('input', function() {
-                foundI.setPayLoad({text:'agile'});
+                foundI.setPayLoad(myFsm.getData());
                 foundI.emit('transition');
             });
             foundI.on('transition', function() {
@@ -53,7 +53,7 @@ module.exports = {
             
             foundI = new state();
             foundI.on('input', function() {
-                foundI.setPayLoad({text:'agile'});
+                foundI.setPayLoad(myFsm.getData());
                 foundI.emit('transition');
             });
             foundI.on('transition', function() {
@@ -66,7 +66,7 @@ module.exports = {
             });
             var foundL = new state();
             foundL.on('input', function() {
-                foundL.setPayLoad({text:'agile'});
+                foundL.setPayLoad(myFsm.getData());
                 foundL.emit('transition');
             });
             foundL.on('transition', function() {
