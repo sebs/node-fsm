@@ -1,4 +1,8 @@
-var assert = require('assert');
+
+
+module.exports = {
+    'bar()': function(assert){
+   var assert = require('assert');
 var state = require('../../../lib/fsm-state').state;
 var fsm = require('../../../lib/fsm-table-async').asyncTable;
 var sys = require('sys');
@@ -6,10 +10,10 @@ var sys = require('sys');
 var myFsm = new fsm(function() {});
 assert.ok(myFsm.counter == 0);
 
-var foundE = new state(); 
+var foundE = new state();
 foundE.on('input', function() {
     foundE.emit('transition');
-    assert.ok(myFsm.counter == 2); 
+    assert.ok(myFsm.counter == 2);
 });
 
 foundE.on('transition', function() {
@@ -25,4 +29,8 @@ myFsm.on('win', win);
 myFsm.on('found_e', foundE);
 myFsm.execute('found_e');
 assert.ok(myFsm.counter == 2);
+ 
+
+    }
+};
 

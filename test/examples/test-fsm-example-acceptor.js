@@ -1,4 +1,6 @@
-var assert = require('assert');
+module.exports = {
+    'bar()': function(assert){
+   var assert = require('assert');
 var state = require('../../lib/fsm-state').state;
 var fsm = require('../../lib/fsm-table-async').asyncTable;
 var sys = require('sys');
@@ -18,20 +20,34 @@ foundA.on('transition', function() {
         myFsm.emitState('error');
     }
     assert.ok(data.text == 'agile');
-});
+}); 
+
 var foundG = new state();
 foundG.on('input', function() {
-    foundG.setPayLoad({text:'agile'});    
+    foundG.setPayLoad({text:'agile'});
     foundG.emit('transition');
 });
 foundG.on('transition', function() {
-    var data = foundG.getPayLoad(); 
+    var data = foundG.getPayLoad();
     if (data.text.charAt(1)== 'g') {
         myFsm.emitState('found_i');
     } else {
         myFsm.emitState('error');
     }
     assert.ok(data.text == 'agile');
+});
+foundI = new state();
+foundI.on('input', function() {
+    foundI.setPayLoad({text:'agile'});
+    foundI.emit('transition');
+});
+foundI.on('transition', function() {
+    data = foundI.getPayLoad();
+    if (data.text.charAt(2)== 'i') {
+        myFsm.emitState('found_l');
+    } else {
+        myFsm.emitState('error');
+    }
 });
 
 foundI = new state();
@@ -47,7 +63,6 @@ foundI.on('transition', function() {
         myFsm.emitState('error');
     }
 });
-
 var foundL = new state();
 foundL.on('input', function() {
     foundL.setPayLoad({text:'agile'});
@@ -61,8 +76,7 @@ foundL.on('transition', function() {
         myFsm.emitState('error');
     }
 });
-
-var foundE = new state(); 
+var foundE = new state();
 foundE.on('input', function() {
     foundE.emit('transition');
 });
@@ -82,11 +96,15 @@ win.on('input', function() {
 
 myFsm.on('win', win);
 myFsm.on('error', error);
-myFsm.on('found_a', foundA); 
+myFsm.on('found_a', foundA);
 myFsm.on('found_g', foundG)
 myFsm.on('found_i', foundI);
 myFsm.on('found_l', foundL);
 myFsm.on('found_e', foundE);
 myFsm.execute('found_a');
 
+
+
+    }
+};
 

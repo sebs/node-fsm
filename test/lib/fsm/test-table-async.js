@@ -1,4 +1,6 @@
-var assert = require('assert');
+module.exports = {
+    'bar()': function(assert){
+    var assert = require('assert');
 var sys = require('sys');
 var state = require('../../../lib/fsm-state').state;
 var table = require('../../../lib/fsm-table-async').asyncTable;
@@ -14,15 +16,15 @@ found.on('transition', function() {
 });
 var end = new state();
 end.on('transition', function() {
-    myFsm.end();    
+    myFsm.end();
 });
 
 // add the state to the fsm 
-myFsm.on('state', found); 
+myFsm.on('state', found);
 myFsm.on('end_state', end);
-
 // run the fsm 
 myFsm.execute('state', function(){
     
 });
-
+}
+}

@@ -1,3 +1,3 @@
 test:
-	@find test/*/*/*.js | xargs -n 1 -t node; find test/*/*.js | xargs -n 1 -t node 
+	@expresso test/lib/state/*.js; expresso test/lib/fsm/*.js; expresso test/examples/*.js
 .PHONY: test

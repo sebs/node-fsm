@@ -1,4 +1,6 @@
-var assert = require('assert');
+module.exports = {
+    'bar()': function(assert){
+    var assert = require('assert');
 var sys = require('sys');
 var state = require('../../../lib/fsm-state').state;
 var cState = new state();
@@ -15,17 +17,19 @@ assert.ok(typeof cState.on == 'function');
 // add an event that has a method passed
 assert.ok(cState.on('entry', function() {
     //sys.log(JSON.stringify(data));
-    cState.emit('exit');    
+    cState.emit('exit');
 }));
 assert.ok(cState.on('exit', function() {
-    cState.emit('transition');    
+    cState.emit('transition');
 }));
 assert.ok(cState.on('transition', function() {
     assert.ok(true);
-}));  
+}));
 assert.ok(cState.on('input', function() {
     cState.emit('entry');
 }));
-
 cState.execute();
+    }
+};
+
 
