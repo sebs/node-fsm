@@ -1,12 +1,14 @@
+var common = require('./common');
+var fsm = common.fsm; 
+var state = common.state; 
+
 module.exports = {
     'bar()': function(assert){
-        var state = require('../../lib/fsm-state').state;
-        var fsm = require('../../lib/fsm-table-async').asyncTable;
         var sys = require('sys');
         // now add all the states to the fsm
-        var myFsm = new fsm(function() {});
+        var myFsm = new common.fsm(function() {});
             
-            var foundA = new state();
+            var foundA = new common.state();
             foundA.on('input', function() {
                 foundA.setPayLoad({text:'agile'});
                 foundA.emit('transition');
@@ -21,7 +23,7 @@ module.exports = {
                 assert.ok(data.text == 'agile');
             }); 
             
-            var foundG = new state();
+            var foundG = new common.state();
             foundG.on('input', function() {
                 foundG.setPayLoad({text:'agile'});
                 foundG.emit('transition');

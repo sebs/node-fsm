@@ -1,10 +1,9 @@
-
+var common = require('./common');
+var fsm = common.fsm; 
+var state = common.state; 
 
 module.exports = {
     'bar()': function(assert){
-        var state = require('../../../lib/fsm-state').state;
-        var fsm = require('../../../lib/fsm-table-async').asyncTable;
-        var sys = require('sys');
         // now add all the states to the fsm
         var myFsm = new fsm(function() {});
         assert.ok(myFsm.counter == 0);
