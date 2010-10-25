@@ -9,7 +9,7 @@ module.exports = {
         // first of all we ad states
         var myFsm = new fsm(function() {});
         var stats = myFsm.stats();
-        assert.eql(typeof stats, 'object');
+        assert.type(stats, 'object');
     }
 };
 
