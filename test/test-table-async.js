@@ -23,5 +23,16 @@ module.exports = {
         myFsm.on('end_state', end);
         // run the fsm 
         myFsm.execute('state', function(){});
+        assert.ok(myFsm.counter > 0);
+    }, 
+    'test tick when state changes ': function() {
+        var myFsm = new fsm(function() {});
+        var myState = new state();
+        myState.on('input', function() {
+            myFsm.end();
+        });
+        myFsm.on('doit', myState);
+        tick = myFsm.counter;  
+        myFsm.execute('doit', function() {});
     }
 }
