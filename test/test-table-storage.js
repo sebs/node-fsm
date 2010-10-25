@@ -2,11 +2,11 @@ var fsm = require('./common').fsm;
 var state = require('./common').state;
 
 module.exports = {
-    'bar()': function(assert){
+    'fsm storage': function(assert){
         myFsm = new fsm(function(){});
         myFsm.setData({id:1}); 
         var data = myFsm.getData();
-        assert.ok(data.id == 1);
+        assert.eql(data.id, 1);
     }
 };
 

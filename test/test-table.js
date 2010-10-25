@@ -18,7 +18,7 @@ module.exports = {
         // add another transition
         fsm.onTransition('Calculate', 'Final', function() {
             var data = fsm.getData('secret');
-            assert.ok(data == 'foo');
+            assert.eql(data , 'foo');
             return 'Final';
         });
         // run the machine 
