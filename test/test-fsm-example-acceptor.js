@@ -36,10 +36,7 @@ module.exports = {
                 assert.ok(data.text == 'agile');
             });
             foundI = new state();
-            foundI.on('input', function() {
-                foundI.setPayLoad(myFsm.getData());
-                foundI.emit('transition');
-            });
+            foundI.on('input', input);
             foundI.on('transition', function() {
                 data = foundI.getPayLoad();
                 if (data.text.charAt(2)== 'i') {
@@ -50,10 +47,7 @@ module.exports = {
             });
             
             foundI = new state();
-            foundI.on('input', function() {
-                foundI.setPayLoad(myFsm.getData());
-                foundI.emit('transition');
-            });
+            foundI.on('input', input);
             foundI.on('transition', function() {
                 data = foundI.getPayLoad();
                 if (data.text.charAt(2)== 'i') {
@@ -63,10 +57,7 @@ module.exports = {
                 }
             });
             var foundL = new state();
-            foundL.on('input', function() {
-                foundL.setPayLoad(myFsm.getData());
-                foundL.emit('transition');
-            });
+            foundL.on('input', input);
             foundL.on('transition', function() {
                 data = foundL.getPayLoad();
                 if (data.text.charAt(3)== 'l') {
