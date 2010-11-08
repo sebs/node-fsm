@@ -5,14 +5,15 @@ var state = common.state;
 module.exports = {
     'example acceptor': function(assert){
         var sys = require('sys');
+        
         // now add all the states to the fsm
         var myFsm = new common.fsm(function() {}, {text:'agile'});
-            
+            var input = function(state) {
+                state.setPayLoad(myFsm.getData());
+                state.emit('transition');
+            };     
             var foundA = new common.state();
-            foundA.on('input', function() {
-                foundA.setPayLoad(myFsm.getData());
-                foundA.emit('transition');
-            });
+            foundA.on('input', input);
             foundA.on('transition', function() {
                 var data = foundA.getPayLoad();
                 if (data.text.charAt(0)== 'a') {
@@ -24,10 +25,7 @@ module.exports = {
             }); 
             
             var foundG = new common.state();
-            foundG.on('input', function() {
-                foundG.setPayLoad(myFsm.getData());
-                foundG.emit('transition');
-            });
+            foundG.on('input', input);
             foundG.on('transition', function() {
                 var data = foundG.getPayLoad();
                 if (data.text.charAt(1)== 'g') {
