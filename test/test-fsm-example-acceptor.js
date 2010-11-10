@@ -12,7 +12,7 @@ module.exports = {
                 state.setPayLoad(myFsm.getData());
                 state.emit('transition');
             };     
-            var foundA = new common.state();
+            var foundA = new state();
             foundA.on('input', input);
             foundA.on('transition', function() {
                 var data = foundA.getPayLoad();
@@ -24,7 +24,7 @@ module.exports = {
                 assert.ok(data.text == 'agile');
             }); 
             
-            var foundG = new common.state();
+            var foundG = new state();
             foundG.on('input', input);
             foundG.on('transition', function() {
                 var data = foundG.getPayLoad();
@@ -76,12 +76,12 @@ module.exports = {
             
             var error = new state();
             error.on('input', function() {
+                assert.fail();
             });
             
             var win = new state();
             win.on('input', function() {
-                // @todo add a test
-                //sys.log('i win at finding agile win');
+                assert.ok(true);           
             });
             
             myFsm.on('win', win);
