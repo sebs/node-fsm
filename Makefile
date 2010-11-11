@@ -1,3 +1,3 @@
 test:
-	@expresso test/test-*
+	@expresso --cov test/test-*
 .PHONY: test
