@@ -1,4 +1,4 @@
-Finite state machine module for node.js
+### Finite state machine module for node.js
 
 State
 Object to represent a single state. The state is event based.
